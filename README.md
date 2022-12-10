@@ -1,5 +1,9 @@
 # Projet_Nietflix
 ## Projet Nietflix Groupe 3
+## Authors
+
+- [Hugo DI PAOLO](https://github.com/Cliffy57)
+
 
 
 Installer Java: version 1.8.0_311, vendor Oracle Corporation :
