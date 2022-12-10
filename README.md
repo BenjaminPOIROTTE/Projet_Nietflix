@@ -1,25 +1,25 @@
 # Projet_Nietflix
 ## Projet Nietflix Groupe 3
 
->
-> Installer Java: version 1.8.0_311, vendor Oracle Corporation :
+
+Installer Java: version 1.8.0_311, vendor Oracle Corporation :
 <br />
->
-> https://www.oracle.com/java/technologies/javase/javase8u211-later-archive-downloads.html
->
-> OU
-> 
-> Installer Java OpenJDK 8 (LTS) :
-> 
-> https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot
->
-> Installer maven :
->
-> https://maven.apache.org/install.html
->
-> Installer les dépendances (à l'aide de maven) :
-> 
-> https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
+
+https://www.oracle.com/java/technologies/javase/javase8u211-later-archive-downloads.html
+
+OU
+ 
+Installer Java OpenJDK 8 (LTS) :
+ 
+https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot
+
+Installer maven :
+
+https://maven.apache.org/install.html
+
+Installer les dépendances (à l'aide de maven) :
+ 
+https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
 
 # Utilisation
 
