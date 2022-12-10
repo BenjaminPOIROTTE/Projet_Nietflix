@@ -13,12 +13,5 @@ architecture logicielle :
 
 ```mermaid
 graph LR;
-    id1[film
-        |-> back
-        |-> front
-        réservation
-        seance
-        banque
-        client (front)
-        gestion (front)]
+    id1[film |-> back |-> front réservation seance banque client (front) gestion (front)]
 ```
