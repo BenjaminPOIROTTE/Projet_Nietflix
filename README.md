@@ -28,4 +28,4 @@ Notation :
 | GraphQL                       |    3  |
 | Socket Web                    |    3  |
 | Appel d'offre                 |   1,5 |
-|-------------------------------|-------|
+
