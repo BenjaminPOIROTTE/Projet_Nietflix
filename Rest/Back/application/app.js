@@ -14,19 +14,22 @@ const uri = "mongodb+srv://achlys:No0OT1v5vcURFfEY@cinemarestapi.qx37mhn.mongodb
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 client.connect(err => {
   const collection = client.db("sample_mflix").collection("comments");
-  // perform actions on the collection object
-        if(err)
-        {
-            console.log(err);
-        }
-  client.close();
+  // find all comments in the collection
+  collection.find({}).toArray((err, comments) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(comments);
+    }
+    client.close();
+  });
 });
 
 const express = require('express');
 const app = express();
-/*
+
 // Get all film sessions
-app.get('/sessions', (req, res) => {
+app.get('/comments', (req, res) => {
   // Use the MongoDB driver to get all film sessions from the database
   collection.find({}).toArray((err, sessions) => {
     if (err) {
@@ -36,7 +39,7 @@ app.get('/sessions', (req, res) => {
     }
   });
 });
-
+/*
 // Get a specific film session
 app.get('/sessions/:id', (req, res) => {
   // Use the MongoDB driver to get a specific film session by id
@@ -85,6 +88,10 @@ app.delete('/sessions/:id', (req, res) => {
   });
 });
 */
+app.get('/', (req, res) => {
+  res.send('Hello, world!');
+});
+
 var port=8081;
 // Start the server
 app.listen(port, () => {
