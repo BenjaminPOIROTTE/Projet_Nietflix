@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Comments</title>
+  </head>
+  <body>
+    <h1>Comments</h1>
+    <ul>
+      <% comments.forEach(function(comment) { %>
+        <li><%= comment.text %></li>
+      <% }); %>
+    </ul>
+  </body>
+</html>

@@ -8,36 +8,51 @@ client.connect(err => {
 
   client.close();
 });*/
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://achlys:No0OT1v5vcURFfEY@cinemarestapi.qx37mhn.mongodb.net/?retryWrites=true&w=majority";
+const path = require('path');
+const { MongoClient, ServerApiVersion } = require("mongodb");
+const express = require("express");
+const app = express();
+const uri =
+  "mongodb+srv://achlys:No0OT1v5vcURFfEY@cinemarestapi.qx37mhn.mongodb.net/?retryWrites=true&w=majority";
 //String uri = "mongodb://achlys:pass@sample.host:27017/?maxPoolSize=20&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-client.connect(err => {
-  const collection = client.db("sample_mflix").collection("comments");
-  // find all comments in the collection
-  collection.find({}).toArray((err, comments) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(comments);
-    }
-    client.close();
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverApi: ServerApiVersion.v1,
+});
+let commentsCollection;
+client.connect((err) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+
+  commentsCollection = client.db("sample_mflix").collection("comments");
+
+  app.listen(8081, () => {
+    console.log("Server is listening on port 8081");
   });
 });
 
-const express = require('express');
-const app = express();
+// Set the view engine to use EJS
+app.set("view engine", "ejs");
 
-// Get all film sessions
-app.get('/comments', (req, res) => {
-  // Use the MongoDB driver to get all film sessions from the database
-  collection.find({}).toArray((err, sessions) => {
+app.set('views', path.join(__dirname, 'views'));
+// Get all comments sessions
+app.get("/comments", (req, res) => {
+  // Use the MongoDB driver to get all comments from the database
+  commentsCollection.find({}).toArray((err, comments) => {
     if (err) {
       res.status(500).send(err);
     } else {
-      res.send(sessions);
+      // Render the comments.ejs template and pass the comments data to it
+      res.render("comments", { comments: comments });
     }
   });
+});
+
+app.get("/", (req, res) => {
+  res.send("Hello, world!");
 });
 /*
 // Get a specific film session
@@ -88,12 +103,3 @@ app.delete('/sessions/:id', (req, res) => {
   });
 });
 */
-app.get('/', (req, res) => {
-  res.send('Hello, world!');
-});
-
-var port=8081;
-// Start the server
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
