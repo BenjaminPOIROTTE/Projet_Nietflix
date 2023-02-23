@@ -54,6 +54,44 @@ app.get("/comments", (req, res) => {
 app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
+
+// Add a new comment
+app.post("/comments", (req, res) => {
+  const comment = req.body;
+  commentsCollection.insertOne(comment, (err, result) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.send(result.ops[0]);
+    }
+  });
+});
+
+// Update an existing comment
+app.put("/comments/:id", (req, res) => {
+  const id = req.params.id;
+  const comment = req.body;
+  commentsCollection.updateOne({ _id: ObjectId(id) }, { $set: comment }, (err, result) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+// Delete a comment
+app.delete("/comments/:id", (req, res) => {
+  const id = req.params.id;
+  commentsCollection.deleteOne({ _id: ObjectId(id) }, (err, result) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
 /*
 // Get a specific film session
 app.get('/sessions/:id', (req, res) => {
