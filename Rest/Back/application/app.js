@@ -11,7 +11,13 @@ client.connect(err => {
 const path = require('path');
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const express = require("express");
+const cors = require('cors');
 const app = express();
+const ejs = require('ejs');
+
+// Enable CORS for all requests
+app.use(cors());
+
 const uri =
   "mongodb+srv://achlys:No0OT1v5vcURFfEY@cinemarestapi.qx37mhn.mongodb.net/?retryWrites=true&w=majority";
 //String uri = "mongodb://achlys:pass@sample.host:27017/?maxPoolSize=20&w=majority";
