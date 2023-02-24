@@ -44,15 +44,13 @@ client.connect((err) => {
 app.set("view engine", "ejs");
 
 app.set('views', path.join(__dirname, 'views'));
-// Get all comments sessions
-app.get("/comments", (req, res) => {
-  // Use the MongoDB driver to get all comments from the database
-  commentsCollection.find({}).toArray((err, comments) => {
+// Get 20 comments sessions
+app.get('/comments', (req, res) => {
+  commentsCollection.find({}, {limit: 20}).toArray((err, comments) => {
     if (err) {
       res.status(500).send(err);
     } else {
-      // Render the comments.ejs template and pass the comments data to it
-      res.render("comments", { comments: comments });
+      res.json(comments);
     }
   });
 });
