@@ -9,10 +9,11 @@ client.connect(err => {
   client.close();
 });*/
 const path = require('path');
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ObjectId, ServerApiVersion } = require("mongodb");
 const express = require("express");
 const cors = require('cors');
 const app = express();
+const bodyParser = require('body-parser');
 const ejs = require('ejs');
 
 // Enable CORS for all requests
@@ -40,6 +41,9 @@ client.connect((err) => {
   });
 });
 
+// Parse JSON request body
+app.use(bodyParser.json());
+
 // Set the view engine to use EJS
 app.set("view engine", "ejs");
 
@@ -60,15 +64,15 @@ app.get("/", (req, res) => {
 });
 
 // Add a new comment
-app.post("/comments", (req, res) => {
-  const comment = req.body;
-  commentsCollection.insertOne(comment, (err, result) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.send(result.ops[0]);
-    }
-  });
+app.post('/movies/:id/comments', async (req, res) => {
+  try {
+    const newComment = { content: req.body.content, movie_id: ObjectId(req.params.id) };
+    const result = await db.collection('comments').insertOne(newComment);
+    res.send(result.ops[0]);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
 });
 
 // Update an existing comment
@@ -83,6 +87,7 @@ app.put("/comments/:id", (req, res) => {
     }
   });
 });
+
 
 // Delete a comment
 app.delete("/comments/:id", (req, res) => {
