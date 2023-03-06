@@ -27,14 +27,14 @@ const client = new MongoClient(uri, {
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,
 });
-let commentsCollection;
+let sessionCollection;
 client.connect((err) => {
   if (err) {
     console.error(err);
     return;
   }
 
-  commentsCollection = client.db("sample_mflix").collection("comments");
+  sessionCollection = client.db("cinema_sessions").collection("sessions");
 
   app.listen(8081, () => {
     console.log("Server is listening on port 8081");
@@ -48,13 +48,13 @@ app.use(bodyParser.json());
 app.set("view engine", "ejs");
 
 app.set('views', path.join(__dirname, 'views'));
-// Get 20 comments sessions
-app.get('/comments', (req, res) => {
-  commentsCollection.find({}, {limit: 20}).toArray((err, comments) => {
+// Get 20 sessions
+app.get('/sessions', (req, res) => {
+  sessionCollection.find({}, {limit: 20}).toArray((err, sessions) => {
     if (err) {
       res.status(500).send(err);
     } else {
-      res.json(comments);
+      res.json(sessions);
     }
   });
 });
@@ -63,23 +63,12 @@ app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
 
-// Add a new comment
-app.post('/movies/:id/comments', async (req, res) => {
-  try {
-    const newComment = { content: req.body.content, movie_id: ObjectId(req.params.id) };
-    const result = await db.collection('comments').insertOne(newComment);
-    res.send(result.ops[0]);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
-});
 
-// Update an existing comment
-app.put("/comments/:id", (req, res) => {
+// Update an existing session
+app.put("/sessions/:id", (req, res) => {
   const id = req.params.id;
-  const comment = req.body;
-  commentsCollection.updateOne({ _id: ObjectId(id) }, { $set: comment }, (err, result) => {
+  const session = req.body;
+  sessionCollection.updateOne({ _id: ObjectId(id) }, { $set: session }, (err, result) => {
     if (err) {
       res.status(500).send(err);
     } else {
@@ -90,9 +79,9 @@ app.put("/comments/:id", (req, res) => {
 
 
 // Delete a comment
-app.delete("/comments/:id", (req, res) => {
+app.delete("/sessions/:id", (req, res) => {
   const id = req.params.id;
-  commentsCollection.deleteOne({ _id: ObjectId(id) }, (err, result) => {
+  sessionCollection.deleteOne({ _id: ObjectId(id) }, (err, result) => {
     if (err) {
       res.status(500).send(err);
     } else {
