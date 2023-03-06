@@ -65,20 +65,26 @@ app.get("/", (req, res) => {
 
 
 // Update an existing session
-app.put("/sessions/:id", (req, res) => {
+app.put("/sessions/:id", async (req, res) => {
   const id = req.params.id;
-  const session = req.body;
-  sessionCollection.updateOne({ _id: ObjectId(id) }, { $set: session }, (err, result) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.send(result);
+  const updatedSession = req.body;
+  delete updatedSession._id; // Prevent modifying the _id field
+
+  try {
+    const existingSession = await sessionCollection.findOne({ _id: ObjectId(id) });
+    if (!existingSession) {
+      return res.status(404).send('Session not found');
     }
-  });
+
+    const result = await sessionCollection.updateOne({ _id: ObjectId(id) }, { $set: updatedSession });
+    res.send(result);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
 
-// Delete a comment
+// Delete a session
 app.delete("/sessions/:id", (req, res) => {
   const id = req.params.id;
   sessionCollection.deleteOne({ _id: ObjectId(id) }, (err, result) => {
