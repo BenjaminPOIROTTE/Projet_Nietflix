@@ -26,6 +26,8 @@ Installer les dépendances (à l'aide de maven) :
  
 https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
 
+Installer Node.js
+https://nodejs.org/en
 # Utilisation
 
 ---
