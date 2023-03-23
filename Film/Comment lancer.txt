@@ -1,0 +1,3 @@
+Ajouter la Bdd film et modifier le fichier db.js dans le dossier back.
+Lancer serveur.js avec node dans le dossier back.
+Ouvrir la page imdb.html dans un navigateur.

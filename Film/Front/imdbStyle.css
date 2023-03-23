@@ -1,0 +1,21 @@
+.carousel-custom {
+    max-width: 800px;
+    max-height: 400px;
+    margin: 0 auto;
+  }
+  .multi-item-carousel .item {
+    display: none;
+  }
+  .multi-item-carousel .item:nth-child(1),
+  .multi-item-carousel .item:nth-child(2),
+  .multi-item-carousel .item:nth-child(3) {
+    display: block;
+  }
+    
+  .carousel-img {
+    max-width: 100%;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  

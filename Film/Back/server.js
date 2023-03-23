@@ -2,8 +2,10 @@ const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
 const mysql = require('mysql2/promise');
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
 
 const schema = buildSchema(`
   type Query {
@@ -22,6 +24,7 @@ const schema = buildSchema(`
     id_genre2: Int
     duree: Int
     titre: String
+    image: String
     realisateur: Director
     genre1: Genre
     genre2: Genre
@@ -56,20 +59,17 @@ const getMovies = async () => {
     id_genre2: movie.id_genre2,
     duree: movie.duree,
     titre: movie.titre,
+    image: movie.image,
   }));
 
  for (const movie of movies) {
 
     const [Director] = await connection.execute('SELECT * FROM realisateur WHERE id_realisateur = ?', [movie.id_real]);
-     movie.realisateur = Director;
-    
+    movie.realisateur = Director[0];
     const [genre1] = await connection.execute('SELECT * FROM genre WHERE id_genre = ?', [movie.id_genre1]);
-    movie.genre1 = genre1;
+    movie.genre1 = genre1[0];
     const [genre2] = await connection.execute('SELECT * FROM genre WHERE id_genre = ?', [movie.id_genre2]);
-    movie.genre2 = genre2;
-    console.log(movie.realisateur);
-    console.log(movie.realisateur[0].nom_realisateur);
-
+    movie.genre2 = genre2[0];
 
   }
 
@@ -90,13 +90,13 @@ const getMovieById = async (args) => {
   const movie = rows[0];
   
   const [realisateur] = await connection.execute('SELECT * FROM realisateur WHERE id_realisateur = ?', [movie.id_real]);
-  movie.realisateur = realisateur;
+  movie.realisateur = realisateur[0];
 
   const [genre1] = await connection.execute('SELECT * FROM genre WHERE id_genre = ?', [movie.id_genre1]);
-  movie.genre1 = genre1;
+  movie.genre1 = genre1[0];
 
   const [genre2] = await connection.execute('SELECT * FROM genre WHERE id_genre = ?', [movie.id_genre2]);
-  movie.genre2 = genre2;
+  movie.genre2 = genre2[0];
 
   return movie;
 };
@@ -163,6 +163,10 @@ const root = {
 };
 
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
+});
 app.use('/graphql', graphqlHTTP({
   schema: schema,
   rootValue: root,

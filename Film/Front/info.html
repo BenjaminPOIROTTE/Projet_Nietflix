@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="imdb.js"></script>
+        <link rel="stylesheet" href="imdbStyle.css">
+
+    </head>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="imdb.html"><img width="100px" height="50px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/2560px-IMDB_Logo_2016.svg.png"></a>
+          </div>
+          <form class="navbar-form navbar-right">
+            <div class="form-group">
+            </div>
+         
+          </form>
+        </div>
+      </nav>
+      <body>
+        <div>
+            <img id="imagefilm" src="chemin/vers/mon/image.jpg" alt="image film" style="float:left; margin-right:20px; width: 600; height: 400px;">
+            <div style="float:left;">
+                <h1><span id="Titre">titre</span></h1>
+                <p>Réalisé par : <span id="realisateur">John Doe</span></p>
+                <p>Genre : <span id="genre">action</span></p>
+                <p>Durée : <span id="duree">00</span> minutes</p>
+            </div>
+        </div>
+    </body>
+
+
+</html>
+
+<script>
+    const searchParams = new URLSearchParams(window.location.search);
+const param1Value = searchParams.get('id');
+
+GetFilmByID();
+
+function GetFilmByID()
+{fetch('http://localhost:4000/graphql', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        query: `
+        query {
+            movie(id:`+param1Value+`) {
+	  id_movie
+	  id_real
+	  id_genre1
+	  id_genre2
+	  duree
+	  titre
+	  image
+    realisateur {
+      id_realisateur
+      nom_realisateur
+    }
+    genre1 {
+      id_genre
+      nom_genre
+    }
+    genre2 {
+      id_genre
+      nom_genre
+    }
+	} 
+        }
+        `
+    })
+    })
+    .then(response => response.json())
+    .then(data => AfficherInfo(data.data.movie))
+    .catch(error => console.error(error));
+
+}
+
+function AfficherInfo(data)
+{
+    console.log(data);
+    document.getElementById("imagefilm").src=data.image;
+   document.getElementById("Titre").textContent = data.titre;
+   document.getElementById("realisateur").textContent = data.realisateur.nom_realisateur;
+   document.getElementById("genre").textContent = data.genre1.nom_genre+" ";
+   document.getElementById("duree").textContent = data.duree;
+
+   if(data.genre2 !=null){
+    document.getElementById("genre").textContent += data.genre2.nom_genre;
+
+    }
+}
+
+</script>   
