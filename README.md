@@ -59,6 +59,7 @@ Notation :
 ---
 ## Arborescence du projet
 ```
-A completer
+back-seance-rest
+front-gestion-seance
 ```
 ---
