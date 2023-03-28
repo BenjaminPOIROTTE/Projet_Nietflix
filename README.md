@@ -1,6 +1,8 @@
 # front-gestion-cinema
 
-This template should help get you started developing with Vue 3 in Vite.
+Partie Front Gestion des Séance de cinéma en VueJS
+
+Celui ci fait appel au Back REST afin de récupérer la liste des séances, on peut supprimer ou modifier des séances, il faut connecter cette app au Back en GraphQL et en HttpSocket afin de créer des séances.
 
 ## Recommended IDE Setup
 
