@@ -133,9 +133,7 @@ export default {
       session.editing = true
     },
     saveSession(session) {
-      // split comma-separated strings into arrays
-      session.available_seats = session.available_seats_string.split(', ')
-      session.booked_seats = session.booked_seats_string.split(', ')
+      console.log(session) // add this line
       axios
         .put(`http://localhost:8081/sessions/${session._id}`, {
           movie_id: session.movie_id,
