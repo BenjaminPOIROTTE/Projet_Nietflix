@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const ejs = require('ejs');
 
 // Enable CORS for all requests
-app.use(cors());
+app.use(cors(),);
 
 const uri =
   "mongodb+srv://achlys:No0OT1v5vcURFfEY@cinemarestapi.qx37mhn.mongodb.net/?retryWrites=true&w=majority";
@@ -38,7 +38,7 @@ app.use(bodyParser.json());
 app.set("view engine", "ejs");
 
 app.set('views', path.join(__dirname, 'views'));
-// Get 20 sessions
+// Get 20 sessions (for performance purpose since it was crowded with +1M data before...)
 app.get('/sessions', (req, res) => {
   sessionCollection.find({}, {limit: 20}).toArray((err, sessions) => {
     if (err) {
