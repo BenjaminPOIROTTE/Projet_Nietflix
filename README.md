@@ -3,8 +3,22 @@
 ## Authors
 
 - [Hugo DI PAOLO](https://github.com/Cliffy57)
+- [Thomas LEDUC](https://github.com/TakyL)
 
+##Langagues/frameworks utilisés
 
+Back : <br>
+
+REST : Node.JS + MongoDB<br>
+SOCKETS : TODO<br>
+GRAPHQL : Node.Js<br>
+
+Front : <br>
+
+REST : VueJS  <br>
+SOCKETS : TODO <br>
+GRAPHQL : JavaScript <br
+                         >
 ## Requirements
 
 Installer Java: version 1.8.0_311, vendor Oracle Corporation :
