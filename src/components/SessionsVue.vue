@@ -126,9 +126,16 @@ export default {
       session.editing = !session.editing
     },
     editSession(session) {
+      // initialize new properties with comma-separated strings
+      session.available_seats_string = session.available_seats.join(', ')
+      session.booked_seats_string = session.booked_seats.join(', ')
+      // set editing flag
       session.editing = true
     },
     saveSession(session) {
+      // split comma-separated strings into arrays
+      session.available_seats = session.available_seats_string.split(', ')
+      session.booked_seats = session.booked_seats_string.split(', ')
       axios
         .put(`http://localhost:8081/sessions/${session._id}`, {
           movie_id: session.movie_id,
@@ -148,8 +155,9 @@ export default {
         })
     },
     cancelEdit(session) {
-      // Reset the form data to the original values
-      this.formData = { ...this.originalData }
+      // Reset the session data to the original values
+      const originalSession = this.sessions.find((s) => s._id === session._id)
+      Object.assign(session, originalSession)
       // Reset the edit flag
       session.editing = false
     },
