@@ -5,7 +5,7 @@
 - [Hugo DI PAOLO](https://github.com/Cliffy57)
 - [Thomas LEDUC](https://github.com/TakyL)
 
-##Langagues/frameworks utilisés
+## Langagues/frameworks utilisés
 
 Back : <br>
 
