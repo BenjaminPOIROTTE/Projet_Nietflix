@@ -1,4 +1,5 @@
 <template>
+  <title>Gestion des séances</title>
   <div>
     <sessions-vue></sessions-vue>
   </div>
@@ -6,7 +7,6 @@
 
 <script>
 import SessionsVue from './components/SessionsVue.vue';
-
 export default {
   components: {
     SessionsVue

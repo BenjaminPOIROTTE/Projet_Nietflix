@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Sessions Test</h1>
+    <h1>Gestion des sessions</h1>
     <form @submit.prevent="addSession">
       <input v-model="newSessionStartTime" type="text" placeholder="Start time (e.g. 20:00)" />
       <input v-model="newSessionDate" type="text" placeholder="Date (e.g. 2023-01-21)" />
