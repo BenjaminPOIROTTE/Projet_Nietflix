@@ -1,50 +1,21 @@
 # Projet_Nietflix
-## Projet Nietflix Groupe 3
 ## Authors
 
 - [Hugo DI PAOLO](https://github.com/Cliffy57)
 - [Thomas LEDUC](https://github.com/TakyL)
+- [Quentin LUCOT](https://github.com/Quentin574)
+- [Marco SIMON]()
+- [Benjamin POIROTTE](https://github.com/BenjaminPOIROTTE)
 
 ## Langagues/frameworks utilisés
 
-Back : <br>
+film-front   
+film-back : NodeJS + GraphQL
+réservation : Socket Web 
+séance : NodeJS + REST + MongoDB 
 
-REST : Node.JS + MongoDB<br>
-SOCKETS : TODO<br>
-GRAPHQL : Node.Js<br>
-
-Front : <br>
-
-REST : VueJS  <br>
-SOCKETS : TODO <br>
-GRAPHQL : JavaScript <br
-                         >
-## Requirements
-
-Installer Java: version 1.8.0_311, vendor Oracle Corporation :
-<br />
-
-https://www.oracle.com/java/technologies/javase/javase8u211-later-archive-downloads.html
-
-OU
- 
-Installer Java OpenJDK 8 (LTS) :
- 
-https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot
-
-Installer maven :
-
-https://maven.apache.org/install.html
-
-Installer les dépendances (à l'aide de maven) :
- 
-https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
-
-Installer Node.js
-https://nodejs.org/en
-# Utilisation
-
----
+Client (front)  
+Gestion (front): VueJS
 
 ## Explications
 
