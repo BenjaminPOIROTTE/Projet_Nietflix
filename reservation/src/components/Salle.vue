@@ -7,7 +7,9 @@ export default {
   data() {
     return {
       nbRangees: 0,
-      nbColonnes: 0
+      nbColonnes: 0,
+      selectedRangee:0,
+      selectedCol:0,
     }
   },
   mounted() {
@@ -46,12 +48,13 @@ export default {
     socket.emit('nbcol');
     socket.emit('reservations');
 
+
   },
   methods: {
     afficheSieges(){//affiche les sieges de la salle
       console.log("affichage des sieges");
       let divSieges = document.getElementById("sieges");
-      for(var l=0;l<this.nbRangees;l++){//affiche tous les sieges
+      for(var l=this.nbRangees-1;l>=0;l--){//affiche tous les sieges
         for(var c=0;c<this.nbColonnes;c++){
           let img = document.createElement('img');
           img.id="siege-"+l+"-"+c;
@@ -65,15 +68,37 @@ export default {
     addEventImages(){//ajoute un event aux images de sieges
       console.log("ajout d'envent aux sieges");
       var allimages = document.querySelectorAll('img');//selectionne toutes les images
+
       allimages.forEach(function(img,index){//ajoute un event onclick a chaque image
         img.addEventListener('click',function (e){
           console.log('clicked');
-          //e.target.src="/src/assets/images/siege_reserve.png";
-          let l = e.target.id.split('-')[1];
-          let c = e.target.id.split('-')[2];
-          socket.emit('siege',+(parseInt(l))+"-"+(parseInt(c)));
+          let lbl = document.getElementById("lblconf");
+          let srctarget = e.target.getAttribute('src');
+          if(srctarget.split('/')[srctarget.split('/').length-1]=="siege_libre.png"){
+            let l = e.target.id.split('-')[1];
+            let c = e.target.id.split('-')[2];
+            document.getElementById("conformation").style.visibility="visible";
+            let lbltxt = lbl.textContent.split(':')[0];
+            lbl.textContent=lbltxt+" : "+l+"-"+c;
+          }else{
+            lbl.textContent="";
+          }
+
         });
       });
+    },
+    onClickConfirmation(){
+
+      let txt = document.getElementById("lblconf").textContent;
+      if(txt!=""){
+        let siegeid = txt.split(':')[1].substring(1);
+        var siege = document.getElementById("siege-"+siegeid);
+        siege.src="/src/assets/images/siege_reserve.png";
+        siege.addEventListener('click',function (e){
+          console.log('déjà reservé');
+        });
+        socket.emit('siege',(siegeid.split('-')[0]+"-"+siegeid.split('-')[1]));
+      }
     }
   }
 }
@@ -81,19 +106,22 @@ export default {
 
 <template>
   <div class="container" id="roads">
-    <div class="row border-dark">
-      <h1>ECRAN ICI</h1>
-    </div>
     <div class="row">
       <div class="col" id="sieges">
 
       </div>
     </div>
+    <div class="row border-dark">
+      <h1>ECRAN ICI</h1>
+    </div>
+    <div class="row">
+      <div class="col" id="conformation" style="visibility: hidden;">
+        <label id="lblconf" for="conformation">Etes vous sure de réserver la place :</label><button @click="onClickConfirmation" id="confirmer">Confirmer</button>
+      </div>
+    </div>
 
   </div>
 </template>
-
-
 
 <style scoped>
 
