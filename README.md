@@ -9,13 +9,13 @@
 
 ## Langagues/frameworks utilisés
 
-film-front   
-film-back : NodeJS + GraphQL
-réservation : Socket Web 
-séance : NodeJS + REST + MongoDB 
-
-Client (front)  
-Gestion (front): VueJS
+film-front </br>   
+film-back : NodeJS + GraphQL </br>
+réservation : Socket Web </br>
+séance : NodeJS + REST + MongoDB </br>
+</br>
+Client (front)  </br>
+Gestion (front): VueJS </br>
 
 ## Explications
 
