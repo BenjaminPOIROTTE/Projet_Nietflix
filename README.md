@@ -1,65 +1,46 @@
-# Projet_Nietflix
-## Projet Nietflix Groupe 3
-## Authors
+
+
+# Node.js Server for Cinema Sessions API
+
+This Node.js server provides an API for managing cinema sessions. It uses Express.js for routing and handling HTTP requests, MongoDB for storing data, and EJS as the view engine for rendering HTML templates.
+
+##  Authors
 
 - [Hugo DI PAOLO](https://github.com/Cliffy57)
 
+## Methods
+
+The server supports the following methods:
+
+-   `GET /sessions`: Retrieves a list of 20 cinema sessions from the database.
+-   `PUT /sessions/:id`: Updates an existing session with the specified ID.
+-   `DELETE /sessions/:id`: Deletes a session with the specified ID.
+
+## How to Use
+
+To use this server, you must have Node.js and MongoDB installed on your system. Follow these steps:
+
+1.  Clone this repository to your local machine.
+2.  Install the required packages by running `npm install` in the project directory.
+3.  Start the server by running `node app.js`.
+4.  Use a tool like Postman or a web browser to send requests to the server at `http://localhost:8081`.
 
 ## Requirements
 
-Installer Java: version 1.8.0_311, vendor Oracle Corporation :
-<br />
+This server requires the following packages:
 
-https://www.oracle.com/java/technologies/javase/javase8u211-later-archive-downloads.html
+-   `express`: A web framework for Node.js.
+-   `mongodb`: The official MongoDB driver for Node.js.
+-   `body-parser`: Middleware for parsing HTTP request bodies.
+-   `ejs`: A view engine for rendering HTML templates.
+-   `cors`: Middleware to enable Cross-Origin Resource Sharing (CORS) for all requests.
+## UML diagrams
 
-OU
- 
-Installer Java OpenJDK 8 (LTS) :
- 
-https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot
-
-Installer maven :
-
-https://maven.apache.org/install.html
-
-Installer les dépendances (à l'aide de maven) :
- 
-https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
-
-# Utilisation
-
----
-
-## Explications
-
-architecture logicielle :
-
-![image](https://user-images.githubusercontent.com/73029436/206843144-03d31960-2aca-43eb-ba3e-9e3ec27bed22.png)
-
-
-Notation :
-
-| Tâches                        | Points|
-|-------------------------------|-------|
-| Réalisation de l’architecture |    3  |
-| film-front                    |    1  |
-| film-back                     |    1  |
-| réservation                   |    1  |
-| séance                        |    1  |
-| banque                        |   0,5 |
-| Client (front)                |    1  |
-| Gestion (front)               |    1  |
-| Rest                          |    3  |
-| GraphQL                       |    3  |
-| Socket Web                    |    3  |
-| Appel d'offre                 |   1,5 |
-
-# Annexe
-
----
-## Arborescence du projet
+```mermaid
+sequenceDiagram
+NodeJS ->> MongoDB: Give me the list of sessions
+MongoDB ->> NodeJS: Here is the list of sessions
+VueJS --x NodeJS: Hey, give me the informations that MongoDB gave you
+NodeJS --x VueJS: Here is the list that MongoDB gave me
 ```
-back-seance-rest
-front-gestion-seance
-```
----
+
