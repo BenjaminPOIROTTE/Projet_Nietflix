@@ -9,7 +9,7 @@
 
 ## Langagues/frameworks utilisés
 
-film-front </br>   
+film-front : </br>   
 film-back : NodeJS + GraphQL </br>
 réservation : Socket Web </br>
 séance : NodeJS + REST + MongoDB </br>
