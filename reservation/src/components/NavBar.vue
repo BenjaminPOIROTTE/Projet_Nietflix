@@ -6,8 +6,8 @@ export default {
 <template>
   <div>
     <ul>
-      <li><a class="active" href="">Accueil</a></li>
-      <li><a href="">Tous les films</a></li>
+      <li><a class="active" href="#home">Accueil</a></li>
+      <li><a href="#news">Tous les films</a></li>
     </ul>
   </div>
 </template>

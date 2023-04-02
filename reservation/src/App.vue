@@ -1,7 +1,7 @@
 <script setup>
 import Salle from "@/components/Salle.vue";
-import NavBar from "./components/NavBar.vue";
-
+import NavBar from "@/components/NavBar.vue";
+import Films from "@/components/Films.vue";
 </script>
 
 <template>
@@ -10,7 +10,7 @@ import NavBar from "./components/NavBar.vue";
   </header>
 
   <main>
-    <Salle />
+     <router-view/>
   </main>
 </template>
 

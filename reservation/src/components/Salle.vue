@@ -55,6 +55,10 @@ export default {
       console.log("affichage des sieges");
       let divSieges = document.getElementById("sieges");
       for(var l=this.nbRangees-1;l>=0;l--){//affiche tous les sieges
+        let num= document.createElement('num');
+        num.textContent=l +" | ";
+        num.id="label-"+l;
+        divSieges.appendChild(num);
         for(var c=0;c<this.nbColonnes;c++){
           let img = document.createElement('img');
           img.id="siege-"+l+"-"+c;
@@ -123,6 +127,13 @@ export default {
   </div>
 </template>
 
-<style scoped>
+<style>
+num{
+  color: black;
+  text-align: center;
+  font-size: 50px;
+  position: relative;
+  top: -12px;
+}
 
 </style>
