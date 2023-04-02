@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sessions</title>
+  </head>
+  <body>
+    <h1>Sessions</h1>
+    <ul>
+      <% sessions.forEach(function(session) { %>
+        <li><%= session.movie_id %></li>
+      <% }); %>
+    </ul>
+  </body>
+</html>
