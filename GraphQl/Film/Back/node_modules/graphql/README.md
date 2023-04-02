@@ -155,4 +155,4 @@ Changes are tracked as [GitHub releases](https://github.com/graphql/graphql-js/r
 
 ### License
 
-GraphQL.js is [MIT-licensed](./LICENSE).
+GraphQL.js is [MIT-licensed](LICENSE).
