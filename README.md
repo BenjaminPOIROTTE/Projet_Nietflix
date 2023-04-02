@@ -46,6 +46,11 @@ Notation :
 ---
 ## Arborescence du projet
 ```
-A completer
-```
----
+film
+|-> back
+|-> front
+réservation
+seance
+banque
+client (front)
+gestion (front)
