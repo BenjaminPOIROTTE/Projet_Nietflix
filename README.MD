@@ -11,7 +11,7 @@
 
 film-front : </br>   
 film-back : NodeJS + GraphQL </br>
-réservation : Socket Web </br>
+réservation : Back NodeJS avec SOCKET.IO et Front avec VueJs</br>
 séance : NodeJS + REST + MongoDB </br>
 </br>
 Client (front)  </br>
