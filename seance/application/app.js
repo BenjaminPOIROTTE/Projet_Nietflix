@@ -50,7 +50,7 @@ app.get('/sessions', (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hello, world!");
+  res.send("Go to /sessions to see the fetched sessions from MongoDB!");
 });
 
 
