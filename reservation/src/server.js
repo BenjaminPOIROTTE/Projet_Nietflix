@@ -55,6 +55,34 @@ io.on('connection', (socket) => {
         console.log('Un utilisateur est déconnecté');
     });
 
+    socket.on('cinemas', () => {//tous les cinemas de la db
+        let cinemas = [];
+        con.query("SELECT * FROM cinema", function (err, result, fields) {
+            if (err) throw err;
+            for(let i=0;i<result.length;i++){
+                const cine={};
+                cine['id']=result[i].id_cinema;
+                cine['name']=result[i].name_cinema;
+                cine['city']=result[i].city_cinema;
+                cinemas.push(cine);
+            }
+            console.log(cinemas);
+            socket.emit('cinemas',cinemas);
+        });
+    });
+
+    socket.on('sallecine',(cine) => {//les salles du cinema
+        let sallesDuCine = [];
+        con.query("SELECT * FROM salle WHERE id_cinema="+cine, function (err, result, fields) {
+            if (err) throw err;
+            for(let i=0;i<result.length;i++){
+                sallesDuCine.push(result[i].id_salle);
+            }
+            socket.emit('sallecine',sallesDuCine);
+        });
+
+    })
+
     //envoit le nombre de rangees au client
     socket.on('nbrang', () => {
         socket.emit('nbrang', nbRangees);
