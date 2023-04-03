@@ -6,7 +6,6 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
-const { ObjectID } = require('mongodb');
 
 // Enable CORS for all requests
 app.use(cors(),);
@@ -93,13 +92,7 @@ app.delete("/sessions/:id", (req, res) => {
 
 // Add a new session
 app.post('/sessions', (req, res) => {
-  const newSession = {
-    movie_id: new ObjectId(req.body.movie_id),
-    theater_id: new ObjectId(req.body.theater_id),
-    date: new Date(req.body.date),
-    start_time: req.body.start_time
-  };
-  
+  const newSession = req.body;
   sessionCollection.insertOne(newSession, (err, result) => {
     if (err) {
       res.status(500).send(err);

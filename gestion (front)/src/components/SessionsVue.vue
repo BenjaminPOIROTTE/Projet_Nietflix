@@ -2,10 +2,22 @@
   <div>
     <h1>Gestion des séances</h1>
     <form @submit.prevent="addSession">
-      <input v-model="newSession.start_time" type="text" placeholder="Start time (e.g. 20:00)" />
-      <input v-model="newSession.date" type="text" placeholder="Date (e.g. 2023-01-21)" />
-      <input v-model="newSession.theater_id" type="text" placeholder="Theater ID" />
-      <input v-model="newSession.movie_id" type="text" placeholder="Movie ID" />
+      <input v-model="newSession.start_time" type="text" placeholder="Start time (e.g. 21:00)" />
+      <input
+        v-model="newSession.date"
+        type="datetime-local"
+        placeholder="Date et heure (ex. 2023-04-01T21:00:00)"
+      />
+      <input
+        v-model="newSession.theater_id"
+        type="text"
+        placeholder="Theater ID (e.g. 617154fba22aa4072fcffebc)"
+      />
+      <input
+        v-model="newSession.movie_id"
+        type="text"
+        placeholder="Movie ID (e.g. 6171532f163aa845d80414f2)"
+      />
       <button type="submit">Add session</button>
     </form>
     <ul>
@@ -36,7 +48,7 @@
     </ul>
     <div>
       <button v-if="currentPage > 1" @click="prevPage">Previous</button>
-      <span>Page {{currentPage}} of {{pageCount}}</span>
+      <span>Page {{ currentPage }} of {{ pageCount }}</span>
       <button v-if="currentPage < pageCount" @click="nextPage">Next</button>
     </div>
   </div>
@@ -93,6 +105,14 @@ export default {
       }
     },
     addSession() {
+      // Convert date to Date object
+      const dateObj = new Date(this.newSession.date)
+
+      // Format date as YYYY-mm-ddTHH:MM:ssZ
+      const formattedDate = dateObj.toISOString()
+
+      // Set formatted date on newSession object
+      this.newSession.date = formattedDate
       axios
         .post('http://localhost:8081/sessions', this.newSession)
         .then((response) => {
