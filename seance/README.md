@@ -41,6 +41,12 @@ This server requires the following packages:
 -   `body-parser`: Middleware for parsing HTTP request bodies.
 -   `ejs`: A view engine for rendering HTML templates.
 -   `cors`: Middleware to enable Cross-Origin Resource Sharing (CORS) for all requests.
+-   morgan: HTTP request logger middleware for Node.js.
+  
+## Improvement suggestion:
+
+It has been noticed that the server crashes when a new session is inserted from a client and the update from a client side is not completely done. 
+
 ## UML diagrams
 
 ```mermaid
