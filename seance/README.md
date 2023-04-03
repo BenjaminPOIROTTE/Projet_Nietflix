@@ -25,8 +25,11 @@ To use this server, you must have Node.js and MongoDB installed on your system. 
 3.  Start the server by running `node app.js`.
 4.  Use a tool like Postman or a web browser to send requests to the server at `http://localhost:8081`
 5.  Our MongoDB can be accessed via a Ip adress whitelist, in order to add yours:
+
 5.1 go to https://cloud.mongodb.com/v2/63cbbbe4010a127ae36fb26d#/security/network/accessList
+
 5.2 login as : hugodip@orange.fr password :*h!4`U$:3d&z
+
 5.3 add your IP to the whitelist
 
 ## Requirements
