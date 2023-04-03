@@ -133,7 +133,7 @@ num{
   text-align: center;
   font-size: 50px;
   position: relative;
-  top: -12px;
+  top: 10px;
 }
 
 </style>
