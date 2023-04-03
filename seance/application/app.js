@@ -3,6 +3,7 @@ const { MongoClient, ObjectId, ServerApiVersion } = require("mongodb");
 const express = require("express");
 const cors = require('cors');
 const app = express();
+const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 
@@ -33,6 +34,9 @@ client.connect((err) => {
 
 // Parse JSON request body
 app.use(bodyParser.json());
+
+// Log HTTP requests and responses on the server console
+app.use(morgan('dev'));
 
 // Set the view engine to use EJS
 app.set("view engine", "ejs");
@@ -82,6 +86,18 @@ app.delete("/sessions/:id", (req, res) => {
       res.status(500).send(err);
     } else {
       res.send(result);
+    }
+  });
+});
+
+// Add a new session
+app.post('/sessions', (req, res) => {
+  const newSession = req.body;
+  sessionCollection.insertOne(newSession, (err, result) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.send(result.ops[0]);
     }
   });
 });

@@ -2,8 +2,10 @@
   <div>
     <h1>Gestion des séances</h1>
     <form @submit.prevent="addSession">
-      <input v-model="newSessionStartTime" type="text" placeholder="Start time (e.g. 20:00)" />
-      <input v-model="newSessionDate" type="text" placeholder="Date (e.g. 2023-01-21)" />
+      <input v-model="newSession.start_time" type="text" placeholder="Start time (e.g. 20:00)" />
+      <input v-model="newSession.date" type="text" placeholder="Date (e.g. 2023-01-21)" />
+      <input v-model="newSession.theater_id" type="text" placeholder="Theater ID" />
+      <input v-model="newSession.movie_id" type="text" placeholder="Movie ID" />
       <button type="submit">Add session</button>
     </form>
     <ul>
@@ -19,6 +21,7 @@
         <div v-if="session.editing">
           <span>ID de Séance :{{ session._id }}</span> <br />
           <input v-model="session.theater_id" type="text" placeholder="Theater ID" /><br />
+          <input v-model="session.movie_id" type="text" placeholder="Movie ID" /><br />
           <input
             v-model="session.start_time"
             type="text"
@@ -31,6 +34,11 @@
         <button @click="deleteSession(session._id)">Delete</button>
       </li>
     </ul>
+    <div>
+      <button v-if="currentPage > 1" @click="prevPage">Previous</button>
+      <span>Page {{currentPage}} of {{pageCount}}</span>
+      <button v-if="currentPage < pageCount" @click="nextPage">Next</button>
+    </div>
   </div>
 </template>
 
