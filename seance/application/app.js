@@ -6,7 +6,6 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
-const { ObjectID } = require('mongodb');
 
 // Enable CORS for all requests
 app.use(cors(),);
