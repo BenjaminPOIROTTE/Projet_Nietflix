@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Gestion des sessions</h1>
+    <h1>Gestion des séances</h1>
     <form @submit.prevent="addSession">
       <input v-model="newSessionStartTime" type="text" placeholder="Start time (e.g. 20:00)" />
       <input v-model="newSessionDate" type="text" placeholder="Date (e.g. 2023-01-21)" />
@@ -10,12 +10,10 @@
       <li v-for="session in sessions" :key="session._id">
         <div v-if="!session.editing">
           <span>ID de Séance :{{ session._id }}</span> <br />
-          <span>ID de Film :{{ session.movie_id }}</span> <br />
-          <span>ID du Cinéma :{{ session.theater_id }}</span> <br />
+          <span>ID du Film :{{ session.movie_id }}</span> <br />
+          <span>ID de la Salle :{{ session.theater_id }}</span> <br />
           <span>Heure de début :{{ session.start_time }}</span> <br />
           <span>Date de la séance :{{ session.date }}</span> <br />
-          <span>Place disponible :{{ session.available_seats.join(', ') }}</span> <br />
-          <span>Place occupée :{{ session.booked_seats.join(', ') }}</span> <br />
           <button @click="editSession(session)">Edit</button>
         </div>
         <div v-if="session.editing">
@@ -27,12 +25,6 @@
             placeholder="Start time (e.g. 20:00)"
           /><br />
           <input v-model="session.date" type="text" placeholder="Date (e.g. 2023-01-21)" /><br />
-          <input
-            v-model="session.available_seats"
-            type="text"
-            placeholder="Available seats"
-          /><br />
-          <input v-model="session.booked_seats" type="text" placeholder="Booked seats" /><br />
           <button @click="saveSession(session)">Save</button>
           <button @click="cancelEdit(session)">Cancel</button>
         </div>
@@ -56,9 +48,7 @@ export default {
         movie_id: '',
         theater_id: '',
         date: '',
-        start_time: '',
-        available_seats: [],
-        booked_seats: []
+        start_time: ''
       }
     }
   },
@@ -103,9 +93,7 @@ export default {
             movie_id: '',
             theater_id: '',
             date: '',
-            start_time: '',
-            available_seats: [],
-            booked_seats: []
+            start_time: ''
           }
         })
         .catch((error) => {
@@ -126,9 +114,6 @@ export default {
       session.editing = !session.editing
     },
     editSession(session) {
-      // initialize new properties with comma-separated strings
-      session.available_seats_string = session.available_seats.join(', ')
-      session.booked_seats_string = session.booked_seats.join(', ')
       // set editing flag
       session.editing = true
     },
@@ -139,9 +124,7 @@ export default {
           movie_id: session.movie_id,
           theater_id: session.theater_id,
           date: session.date,
-          start_time: session.start_time,
-          available_seats: session.available_seats,
-          booked_seats: session.booked_seats
+          start_time: session.start_time
         })
         .then((response) => {
           const index = this.sessions.findIndex((s) => s._id === session._id)
