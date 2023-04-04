@@ -1,4 +1,4 @@
-SERVEUR nodeJS AVEC SOCKET.IO
+# SERVEUR nodeJS AVEC SOCKET.IO
 
 Pour lancer le serveur :
 - Etape 1 : cloner le repository
@@ -6,12 +6,12 @@ Pour lancer le serveur :
 - Etape 3 : créer la base de données MySQL à partir du script reservation.sql. Pour information la table place est complétée automatiquement grâce à un trigger après une insertion dans la table salle.
 - Etape 4 : Lancer le serveur avec la commande "node server.js"
 
-Le serveur utilise les packages suivants :
+# Le serveur utilise les packages suivants :
 - mysql
 - express
 - socket.io
 
-Détails techniques :
+# Détails techniques :
 - Pour simplifier nous sommes partis du principe que les salles de cinéma ont toutes des rangées qui comportent le même nombre de sièges.
 - La communication via les WebSockets avec le client se déroule selon les étapes suivantes:
   - Etape 1 : Le serveur envoit au client la liste des cinémas
