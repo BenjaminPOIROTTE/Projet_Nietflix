@@ -6,7 +6,7 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors());
-
+    //Construction schema
 const schema = buildSchema(`
   type Query {
     movies: [Movie]
@@ -61,7 +61,7 @@ const getMovies = async () => {
     titre: movie.titre,
     image: movie.image,
   }));
-
+        //Recherche parmi la liste des films
  for (const movie of movies) {
 
     const [Director] = await connection.execute('SELECT * FROM realisateur WHERE id_realisateur = ?', [movie.id_real]);
@@ -73,11 +73,9 @@ const getMovies = async () => {
 
   }
 
-
-
   return movies;
 };
-
+        //Get by id
 const getMovieById = async (args) => {
   const connection = await mysql.createConnection({
     host: 'localhost',
@@ -162,7 +160,7 @@ const root = {
   }
 };
 
-
+        //Init
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   next();

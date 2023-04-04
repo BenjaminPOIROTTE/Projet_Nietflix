@@ -2,7 +2,7 @@ const graphql = require('graphql');
 const _=require('lodash');
 const{ GraphQLObjectType,GraphQLString, GraphQLSchema, GraphQLID } =graphql;
 
-//data de test
+//  Jeu de données de test
 var Movie=[
     {id:"1",Moviename:'Le seigneur des anneaux',gender1:'2',gender2:"1",director:"Peter Jackson"},
     {id:"2",Moviename:'Resident evil revelation',gender1:'6',gender2:"3",director:"Paul W anderson"},
@@ -108,8 +108,6 @@ const RootQuery = new GraphQLObjectType({
 
     }
 });
-
-
 
 
 module.exports = new GraphQLSchema({
