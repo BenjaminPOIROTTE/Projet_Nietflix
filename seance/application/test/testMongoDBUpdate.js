@@ -21,7 +21,11 @@ MongoClient.connect(uri, function(err, db) {
   
   dbo.collection("sessions").updateOne(query, update, function(err, res) {
     if (err) throw err;
-    console.log(res.result.nModified + " document updated");
+    if (res.result) {
+      console.log(res.result.nModified + " document updated");
+    } else {
+      console.log("Document updated");
+    }
     db.close();
   });
 });
