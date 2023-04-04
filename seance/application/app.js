@@ -90,26 +90,20 @@ app.delete("/sessions/:id", (req, res) => {
   });
 });
 
-// Update an existing session
-app.put('/sessions/:id', (req, res) => {
-  const sessionId = req.params.id;
-  const sessionUpdates = {
+// Add a new session
+app.post('/sessions', (req, res) => {
+  const newSession = {
     movie_id: new ObjectId(req.body.movie_id),
     theater_id: new ObjectId(req.body.theater_id),
     date: new Date(req.body.date),
     start_time: req.body.start_time
   };
-
-  const query = { _id: new ObjectId(sessionId) };
-  const update = { $set: sessionUpdates };
-
-  sessionCollection.updateOne(query, update, (err, result) => {
+  
+  sessionCollection.insertOne(newSession, (err, result) => {
     if (err) {
       res.status(500).send(err);
-    } else if (result.nModified === 0) {
-      res.status(404).send('No session found with the given id');
     } else {
-      res.send('Session updated successfully');
+      res.send(result.ops[0]);
     }
   });
 });
