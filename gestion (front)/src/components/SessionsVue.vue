@@ -149,13 +149,8 @@ export default {
       axios
         .put(`http://localhost:8081/sessions/${session._id}`, session)
         .then((response) => {
-          // Update the session in the list
-          const index = this.sessions.findIndex((s) => s._id === session._id)
-          if (index !== -1) {
-            this.sessions.splice(index, 1, response.data)
-          }
-          // Set editing flag to false
-          session.editing = false
+          // Toggle editing flag back to false
+          this.toggleEdit(session)
         })
         .catch((error) => {
           console.error(error)
