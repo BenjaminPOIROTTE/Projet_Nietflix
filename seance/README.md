@@ -45,7 +45,7 @@ This server requires the following packages:
   
 ## Improvement suggestion:
 
-It has been noticed that the server crashes when a new session is inserted from a client and the update from a client side is not completely done. 
+It has been noticed that the server crashes when a new session is inserted from a client. the update from a client side is completely done but we ae not satisfied about the general formating of the data, from example the session date is in the format : new Date("<YYYY-mm-ddTHH:MM:ssZ>") specifies the datetime in UTC and returns the ISODate with the specified datetime in UTC. So we can remove the start hour, or we can keep it in case there are some delays due to technical problem. 
 
 ## UML diagrams
 
