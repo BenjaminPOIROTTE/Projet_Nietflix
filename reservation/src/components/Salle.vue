@@ -16,6 +16,8 @@ export default {
     //--------------------------------WEBSOCKET---------------------------
 
     //ecoute le serveur
+
+
     socket.on('nbrang', (msg) => {
       console.log("nb de rangees = "+msg)
       this.nbRangees = parseInt(msg);
@@ -44,6 +46,7 @@ export default {
     });
 
     //demande les data sur la salle au serveur
+    socket.emit('idsalle',localStorage.getItem('idsalle'));
     socket.emit('nbrang');
     socket.emit('nbcol');
     socket.emit('reservations');

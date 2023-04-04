@@ -11,7 +11,7 @@ const router = createRouter({
             component: Cinemas
         },
         {
-            path: '/cinema',
+            path: '/cinema/:id',
             component: Films
         },
         {
@@ -19,7 +19,7 @@ const router = createRouter({
             component: Seances
         },
         {
-            path: '/salle',
+            path: '/salle/:id',
             component: Salle
         },
 

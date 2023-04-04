@@ -83,6 +83,8 @@ export default {
         button.textContent="Voir séances";
         button.addEventListener('click', (e) => {//ajoute un event onClick au boutton
           console.log("voir seances");
+          localStorage.setItem('filmdata',JSON.stringify(film));
+          localStorage.setItem('seances',JSON.stringify(this.getSeancesByFilm(film.id_movie)));
           location.assign("/film/"+film.id_movie);
         });
         //ajout du film dans la ligne
@@ -141,9 +143,19 @@ export default {
       console.log(filtered);
       this.displayFilms(filtered);
     },
-    getfakeSeances(seances){
+    getfakeSeances(){
       let fake = [{"_id":"640600d92932bebe81b57401","movie_id":1,"theater_id":5,"date":"2023-01-25T00:00:00.000Z","start_time":"20:00"},{"_id":"640604d4369105e099381364","movie_id":2,"theater_id":6,"date":"2023-01-25T00:00:00.000Z","start_time":"20:00"},{"_id":"640604d8369105e099381365","movie_id":3,"theater_id":7,"date":"2023-01-25T00:00:00.000Z","start_time":"20:00"},{"_id":"642b125e996be353bc069b6c","movie_id":7,"theater_id":5,"date":"1970-01-01T00:00:00.000Z","start_time":"21:00"}];
       return fake;
+    },
+    getSeancesByFilm(idfilm){
+      let allSeances = this.getfakeSeances();
+      let newSeances = [];
+      allSeances.forEach((seance) => {
+        if(seance.movie_id==idfilm){
+          newSeances.push(seance);
+        }
+      })
+      return newSeances;
     }
 
   }

@@ -29,7 +29,7 @@ export default {
         button.textContent="Consulter";
         button.addEventListener('click',(e) => {
           localStorage.setItem('idCinema',cine.id);
-          location.assign('/cinema');
+          location.assign('/cinema/'+cine.id);
         })
         newRow.appendChild(infos);
         newRow.appendChild(button);
