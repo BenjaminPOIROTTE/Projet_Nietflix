@@ -10,28 +10,24 @@ export default {
       nbColonnes: 0,
       selectedRangee:0,
       selectedCol:0,
+
     }
   },
   mounted() {
     //--------------------------------WEBSOCKET---------------------------
-
     //ecoute le serveur
     socket.on('nbrang', (msg) => {
-      console.log("nb de rangees = "+msg)
       this.nbRangees = parseInt(msg);
       console.log("nb de rangees = "+this.nbRangees);
     });
 
     socket.on('nbcol', (msg) => {
-      console.log("nb de colonnes = "+msg);
       this.nbColonnes = parseInt(msg);
-      console.log("nb de colonnes = "+this.nbColonnes);
       this.afficheSieges();
       this.addEventImages();
     });
 
     socket.on('reservations', (msg) => {
-      console.log("places deja reservees : "+msg);
       var strPlacesSplit = msg.split(';');
       for(let i=0;i<strPlacesSplit.length-1;i++){
         document.getElementById("siege-"+strPlacesSplit[i]).src="/src/assets/images/siege_reserve.png";
@@ -39,11 +35,11 @@ export default {
     });
 
     socket.on('reponse', (rep) => {
-      console.log("un client a reservé la place : "+rep);
       document.getElementById("siege-"+rep).src="/src/assets/images/siege_reserve.png";
     });
 
     //demande les data sur la salle au serveur
+    socket.emit('idsalle',localStorage.getItem('idsalle'));
     socket.emit('nbrang');
     socket.emit('nbcol');
     socket.emit('reservations');
@@ -51,8 +47,8 @@ export default {
 
   },
   methods: {
-    afficheSieges(){//affiche les sieges de la salle
-      console.log("affichage des sieges");
+    //affiche les sieges de la salle
+    afficheSieges(){
       let divSieges = document.getElementById("sieges");
       for(var l=this.nbRangees-1;l>=0;l--){//affiche tous les sieges
         let num= document.createElement('num');
@@ -69,13 +65,12 @@ export default {
         divSieges.innerHTML+="<br>";
       }
     },
-    addEventImages(){//ajoute un event aux images de sieges
-      console.log("ajout d'envent aux sieges");
-      var allimages = document.querySelectorAll('img');//selectionne toutes les images
 
+    //ajoute un event click au images de siege
+    addEventImages(){//
+      var allimages = document.querySelectorAll('img');//selectionne toutes les images
       allimages.forEach(function(img,index){//ajoute un event onclick a chaque image
         img.addEventListener('click',function (e){
-          console.log('clicked');
           let lbl = document.getElementById("lblconf");
           let srctarget = e.target.getAttribute('src');
           if(srctarget.split('/')[srctarget.split('/').length-1]=="siege_libre.png"){
@@ -87,22 +82,45 @@ export default {
           }else{
             lbl.textContent="";
           }
-
         });
       });
     },
-    onClickConfirmation(){
 
+    onClickConfirmation(){
       let txt = document.getElementById("lblconf").textContent;
       if(txt!=""){
-        let siegeid = txt.split(':')[1].substring(1);
-        var siege = document.getElementById("siege-"+siegeid);
-        siege.src="/src/assets/images/siege_reserve.png";
-        siege.addEventListener('click',function (e){
-          console.log('déjà reservé');
-        });
-        socket.emit('siege',(siegeid.split('-')[0]+"-"+siegeid.split('-')[1]));
+        let txtcarte = document.getElementById('nocarte');
+        let txt_nocarte = txtcarte.value;
+        if(this.checkNoCarteOk(txt_nocarte)){//verifie si le numéro de carte est valide
+          txtcarte.style.borderColor="";
+          let siegeid = txt.split(':')[1].substring(1);
+          var siege = document.getElementById("siege-"+siegeid);
+          siege.src="/src/assets/images/siege_reserve.png";
+          siege.addEventListener('click',function (e){
+            console.log('déjà reservé');
+          });
+          document.getElementById("conformation").style.visibility="hidden";
+          socket.emit('siege',(siegeid.split('-')[0]+"-"+siegeid.split('-')[1]));
+        }else{
+          txtcarte.style.borderColor="red";
+        }
       }
+    },
+
+    //retourne une liste de numéros de carte
+    fakeAPIBancaire(){
+      const comptes=[{no_carte:'4444 4444 4444 4444'},{no_carte: '7777 7777 7777 7777'},{no_carte: '1111 2222 3333 4444'}];
+      return comptes;
+    },
+
+    //verifie si le numero de carte saisi par l'utilisateur est valide
+    checkNoCarteOk(no_carte){
+      let comptes = this.fakeAPIBancaire();
+      for(let i=0;i<comptes.length;i++){
+        if(comptes[i].no_carte==no_carte)
+          return true;
+      }
+      return false;
     }
   }
 }
@@ -120,7 +138,9 @@ export default {
     </div>
     <div class="row">
       <div class="col" id="conformation" style="visibility: hidden;">
-        <label id="lblconf" for="conformation">Etes vous sure de réserver la place :</label><button @click="onClickConfirmation" id="confirmer">Confirmer</button>
+        <p id="lblconf">Réservation de la place :</p>
+        <label for="nocarte">Votre numéro de carte :</label> <input type="text" id="nocarte" />
+        <button @click="onClickConfirmation" id="confirmer">Confirmer</button>
       </div>
     </div>
 
@@ -133,7 +153,7 @@ num{
   text-align: center;
   font-size: 50px;
   position: relative;
-  top: 10px;
+  top: -12px;
 }
 
 </style>
