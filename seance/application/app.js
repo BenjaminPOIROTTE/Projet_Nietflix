@@ -59,22 +59,27 @@ app.get("/", (req, res) => {
 
 
 // Update an existing session
-app.put("/sessions/:id", async (req, res) => {
-  const id = req.params.id;
-  const updatedSession = req.body;
-  delete updatedSession._id; // Prevent modifying the _id field
+app.put('/sessions/:id', (req, res) => {
+  const sessionId = req.params.id;
+  const sessionUpdates = {
+    movie_id: new ObjectId(req.body.movie_id),
+    theater_id: new ObjectId(req.body.theater_id),
+    date: new Date(req.body.date),
+    start_time: req.body.start_time
+  };
 
-  try {
-    const existingSession = await sessionCollection.findOne({ _id: ObjectId(id) });
-    if (!existingSession) {
-      return res.status(404).send('Session not found');
+  const query = { _id: new ObjectId(sessionId) };
+  const update = { $set: sessionUpdates };
+
+  sessionCollection.updateOne(query, update, (err, result) => {
+    if (err) {
+      res.status(500).send(err);
+    } else if (result.nModified === 0) {
+      res.status(404).send('No session found with the given id');
+    } else {
+      res.send('Session updated successfully');
     }
-
-    const result = await sessionCollection.updateOne({ _id: ObjectId(id) }, { $set: updatedSession });
-    res.send(result);
-  } catch (err) {
-    res.status(500).send(err);
-  }
+  });
 });
 
 

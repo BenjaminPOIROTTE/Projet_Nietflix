@@ -146,17 +146,15 @@ export default {
       session.editing = true
     },
     saveSession(session) {
-      console.log(session) // add this line
       axios
-        .put(`http://localhost:8081/sessions/${session._id}`, {
-          movie_id: session.movie_id,
-          theater_id: session.theater_id,
-          date: session.date,
-          start_time: session.start_time
-        })
+        .put(`http://localhost:8081/sessions/${session._id}`, session)
         .then((response) => {
+          // Update the session in the list
           const index = this.sessions.findIndex((s) => s._id === session._id)
-          this.sessions.splice(index, 1, response.data)
+          if (index !== -1) {
+            this.sessions.splice(index, 1, response.data)
+          }
+          // Set editing flag to false
           session.editing = false
         })
         .catch((error) => {
